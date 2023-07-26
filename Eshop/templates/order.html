@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load cart %}
+{% load custom_filter %}
+
+
+<div class="container border-rounded">
+    <p class="display-4">Orders</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th> Price</th>
+                <th>Date</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{order.Product.ProductName}}</td>
+                <td>{{order.Price|currency}}</td>
+                <td>{{order.date}}</td>
+                <td>{{order.ProductQuantity}}</td>
+                <td>{{order.ProductQuantity|multiply:order.Price|currency}}</td>
+                {% if order.Order_status %}
+                <td><small class="badge badge-sucsess">Completed</small></td>
+                {% else %}
+                <td><small class="badge badge-warning">Pending</small></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+</div>
+
+
+
+
+{% endblock %}
